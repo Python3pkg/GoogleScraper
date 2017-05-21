@@ -40,7 +40,7 @@ def get_config(command_line_args=None, external_configuration_file=None, config_
     config = GoogleScraper.scrape_config
 
     def update_members(d):
-        for k, v in d.items():
+        for k, v in list(d.items()):
             setattr(config, k, v)
 
     if external_configuration_file:
@@ -55,7 +55,7 @@ def get_config(command_line_args=None, external_configuration_file=None, config_
     if config_from_library_call:
         update_members(config_from_library_call)
 
-    config = {k: v for k, v in vars(config).items() if not k.startswith('_')}
+    config = {k: v for k, v in list(vars(config).items()) if not k.startswith('_')}
 
     return config
 

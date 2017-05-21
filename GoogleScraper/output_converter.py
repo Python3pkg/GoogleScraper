@@ -16,7 +16,7 @@ impossible to launch lang scrape jobs with millions of keywords.
 
 output_format = 'stdout'
 outfile = sys.stdout
-csv_fieldnames = sorted(set(Link.__table__.columns._data.keys() + SERP.__table__.columns._data.keys()) - {'id', 'serp_id'})
+csv_fieldnames = sorted(set(list(Link.__table__.columns._data.keys()) + list(SERP.__table__.columns._data.keys())) - {'id', 'serp_id'})
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +57,7 @@ class CsvStreamWriter():
         for row in data['results']:
             d = row2dict(serp)
             d.update(row)
-            d = ({k: v if type(v) is str else v for k, v in d.items() if k in csv_fieldnames})
+            d = ({k: v if type(v) is str else v for k, v in list(d.items()) if k in csv_fieldnames})
             self.dict_writer.writerow(d)
 
     def end(self):

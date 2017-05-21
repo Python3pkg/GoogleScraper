@@ -29,12 +29,12 @@ for serp in search.serps:
         [link.link for link in serp.links]
     )
 
-print('[i] Going to scrape {num} images and saving them in "{dir}"'.format(
+print(('[i] Going to scrape {num} images and saving them in "{dir}"'.format(
     num=len(image_urls),
     dir=target_directory
-))
+)))
 
-import threading,requests, os, urllib
+import threading,requests, os, urllib.request, urllib.parse, urllib.error
 
 # In our case we want to download the
 # images as fast as possible, so we use threads.
@@ -60,7 +60,7 @@ class FetchResource(threading.Thread):
                     f.write(content)
                 except Exception as e:
                     pass
-                print('[+] Fetched {}'.format(url))
+                print(('[+] Fetched {}'.format(url)))
 
 # make a directory for the results
 try:

@@ -298,7 +298,7 @@ class HttpScrape(SearchEngineScrape, threading.Timer):
         super().before_search()
 
         if self.startable:
-            for self.query, self.pages_per_keyword in self.jobs.items():
+            for self.query, self.pages_per_keyword in list(self.jobs.items()):
 
                 for self.page_number in self.pages_per_keyword:
 

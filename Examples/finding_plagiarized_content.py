@@ -88,4 +88,4 @@ for serp in search.serps:
 
     # if the original query yielded some results and thus was found by google.
     if not serp.effective_query:
-        print('Found plagiarized content: "{}"'.format(serp.query))
+        print(('Found plagiarized content: "{}"'.format(serp.query)))

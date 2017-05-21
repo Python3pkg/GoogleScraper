@@ -309,7 +309,7 @@ class SelScrape(SearchEngineScrape, threading.Thread):
                     import webbrowser
 
                     webbrowser.open('file://{}'.format(tf.name))
-                    solution = input('enter the captcha please...')
+                    solution = eval(input('enter the captcha please...'))
                     self.webdriver.find_element_by_name('submit').send_keys(solution + Keys.ENTER)
                     try:
                         self.search_input = WebDriverWait(self.webdriver, 5).until(
@@ -386,7 +386,7 @@ class SelScrape(SearchEngineScrape, threading.Thread):
             max_wait: How long to wait maximally before returning False.
         """
         def find_visible_search_param(driver):
-            for param, field in self._get_search_param_fields().items():
+            for param, field in list(self._get_search_param_fields().items()):
                 input_field = driver.find_element(*field)
                 if not input_field:
                     return False
@@ -521,7 +521,7 @@ class SelScrape(SearchEngineScrape, threading.Thread):
         Fills out the search form of the search engine for each keyword.
         Clicks the next link while pages_per_keyword is not reached.
         """
-        for self.query, self.pages_per_keyword in self.jobs.items():
+        for self.query, self.pages_per_keyword in list(self.jobs.items()):
 
             self.search_input = self._wait_until_search_input_field_appears()
 
@@ -543,7 +543,7 @@ class SelScrape(SearchEngineScrape, threading.Thread):
                     wait_res = self._wait_until_search_param_fields_appears()
                     if wait_res is False:
                         raise Exception('Waiting search param input fields time exceeds')
-                    for param, field in self.search_param_fields.items():
+                    for param, field in list(self.search_param_fields.items()):
                         if field[0] == By.ID:
                             js_tpl = '''
                             var field = document.getElementById("%s");

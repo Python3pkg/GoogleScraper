@@ -115,7 +115,7 @@ class SearchEngineResultsPage(Base):
         self.effective_query = parser.effective_query
         self.no_results = parser.no_results
 
-        for key, value in parser.search_results.items():
+        for key, value in list(parser.search_results.items()):
             if isinstance(value, list):
                 for link in value:
                     parsed = urlparse(link['link'])

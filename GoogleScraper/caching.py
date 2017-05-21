@@ -352,7 +352,7 @@ class CacheManager():
             else:
                 mappings[file_hash].append(kw)
 
-        duplicates = [v for k, v in mappings.items() if len(v) > 1]
+        duplicates = [v for k, v in list(mappings.items()) if len(v) > 1]
         if duplicates:
             logger.info('Not one-to-one. {}'.format(duplicates))
             return False

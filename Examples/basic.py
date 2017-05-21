@@ -23,11 +23,11 @@ except GoogleSearchError as e:
 
 for serp in search.serps:
     print(serp)
-    print(serp.search_engine_name)
-    print(serp.scrape_method)
-    print(serp.page_number)
-    print(serp.requested_at)
-    print(serp.num_results)
+    print((serp.search_engine_name))
+    print((serp.scrape_method))
+    print((serp.page_number))
+    print((serp.requested_at))
+    print((serp.num_results))
     # ... more attributes ...
     for link in serp.links:
         print(link)

@@ -339,7 +339,7 @@ class SearchEngineScrape(metaclass=abc.ABCMeta):
 
         assert search_number >= 0
         if search_number != 0:
-            s = sorted(self.sleeping_ranges.keys(), reverse=True)
+            s = sorted(list(self.sleeping_ranges.keys()), reverse=True)
             for n in s:
                 if search_number % n == 0:
                     return self.sleeping_ranges[n]
@@ -387,7 +387,7 @@ class SearchEngineScrape(metaclass=abc.ABCMeta):
 
             proxy = self.session.query(db_Proxy).filter(self.proxy.host == db_Proxy.ip).first()
             if proxy:
-                for key in ipinfo.keys():
+                for key in list(ipinfo.keys()):
                     setattr(proxy, key, ipinfo[key])
 
                 proxy.checked_at = datetime.datetime.utcnow()

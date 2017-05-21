@@ -176,11 +176,11 @@ class Parser():
         if not selector_dict and not isinstance(selector_dict, dict):
             raise InvalidSearchTypeException('There is no such attribute: {}. No selectors found'.format(attr_name))
 
-        for result_type, selector_class in selector_dict.items():
+        for result_type, selector_class in list(selector_dict.items()):
 
             self.search_results[result_type] = []
 
-            for selector_specific, selectors in selector_class.items():
+            for selector_specific, selectors in list(selector_class.items()):
 
                 if 'result_container' in selectors and selectors['result_container']:
                     css = '{container} {result_container}'.format(**selectors)
@@ -192,7 +192,7 @@ class Parser():
                 )
 
                 to_extract = set(selectors.keys()) - {'container', 'result_container'}
-                selectors_to_use = {key: selectors[key] for key in to_extract if key in selectors.keys()}
+                selectors_to_use = {key: selectors[key] for key in to_extract if key in list(selectors.keys())}
 
                 for index, result in enumerate(results):
                     # Let's add primitive support for CSS3 pseudo selectors
@@ -206,7 +206,7 @@ class Parser():
                     serp_result = {}
                     # key are for example 'link', 'snippet', 'visible-url', ...
                     # selector is the selector to grab these items
-                    for key, selector in selectors_to_use.items():
+                    for key, selector in list(selectors_to_use.items()):
                         serp_result[key] = self.advanced_css(selector, result)
 
                     serp_result['rank'] = index + 1
@@ -304,7 +304,7 @@ class Parser():
     def iter_serp_items(self):
         """Yields the key and index of any item in the serp results that has a link value"""
 
-        for key, value in self.search_results.items():
+        for key, value in list(self.search_results.items()):
             if isinstance(value, list):
                 for i, item in enumerate(value):
                     if isinstance(item, dict) and item['link']:

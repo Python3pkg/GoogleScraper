@@ -40,14 +40,14 @@ class GoogleScraperIntegrationTestCase(unittest.TestCase):
             len([v['snippet'] for v in parser.search_results['results'] if v['snippet'] is not None]), 10, delta=delta)
 
     def assert_atleast90percent_of_items_are_not_None(self, parser, exclude_keys={'snippet'}):
-        for result_type, res in parser.search_results.items():
+        for result_type, res in list(parser.search_results.items()):
 
             c = Counter()
             for item in res:
-                for key, value in item.items():
+                for key, value in list(item.items()):
                     if value is None:
                         c[key] += 1
-            for key, value in c.items():
+            for key, value in list(c.items()):
                 if key not in exclude_keys:
                     assert (len(res) / int(value)) >= 9, key + ' has too many times a None value: ' + '{}/{}'.format(
                         int(value), len(res))
@@ -220,7 +220,7 @@ class GoogleScraperIntegrationTestCase(unittest.TestCase):
         try:
             results = json.load(file)
         except ValueError as e:
-            print('Cannot parse output json file {}. Reason: {}'.format(json_outfile, e))
+            print(('Cannot parse output json file {}. Reason: {}'.format(json_outfile, e)))
             raise e
 
         # the items that should always have a value:
@@ -228,7 +228,7 @@ class GoogleScraperIntegrationTestCase(unittest.TestCase):
         num_results = 0
         for item in results:
 
-            for k, v in item.items():
+            for k, v in list(item.items()):
 
                 if k == 'results':
 
@@ -385,7 +385,7 @@ class GoogleScraperIntegrationTestCase(unittest.TestCase):
 
         assert parser.num_results > 8
 
-        for result_type, data in parser.search_results.items():
+        for result_type, data in list(parser.search_results.items()):
             if result_type == 'normal':
                 assert len(data) > 8
 

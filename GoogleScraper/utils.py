@@ -55,7 +55,7 @@ def chunk_it(seq, num):
     return out
 
 
-def random_words(n=100, wordlength=range(10, 15)):
+def random_words(n=100, wordlength=list(range(10, 15))):
     """Read a random english wiki article and extract some words.
 
     Args:
